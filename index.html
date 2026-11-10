@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador Foto: aprende a usar la cámara</title>
+  <meta name="description" content="App para Android que enseña fotografía: mueve la velocidad, el diafragma y el ISO sobre una foto real y mira qué cambia. Descarga gratis.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Simulador Foto">
+  <meta property="og:description" content="Aprende a usar la cámara moviendo la velocidad, el diafragma y el ISO sobre una foto real. App para Android.">
+  <meta property="og:image" content="https://luisp193.github.io/img/compartir.jpg">
+  <meta property="og:url" content="https://luisp193.github.io/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231E1E1E'/%3E%3Cpath d='M16 7v18M7 16h18' stroke='%23E53935' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/enfoque-3m.jpg">
+  <style>
+    :root {
+      /* Papel gris y carta gris del 18 %: la referencia de la exposición */
+      --papel: #dcdcd9;
+      --carta: #767676;
+      --tinta: #000;
+      --tinta-suave: #474745;
+      --raya: rgba(0, 0, 0, 0.18);
+      --boton: #000;
+      --boton-texto: #fff;
+      --mira: #e53935;
+      --lectura: #000;
+      --lectura-texto: #f2f2f2;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --papel: #262625;
+        --tinta: #f1f1ee;
+        --tinta-suave: #b9b9b5;
+        --raya: rgba(255, 255, 255, 0.18);
+        --boton: #f1f1ee;
+        --boton-texto: #000;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--papel);
+      color: var(--tinta);
+      font-family: "Archivo", system-ui, sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.6;
+      font-variation-settings: "wdth" 100;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-underline-offset: 0.18em; }
+    :focus-visible { outline: 3px solid var(--mira); outline-offset: 3px; }
+    img { display: block; max-width: 100%; }
+
+    .pagina { max-width: 76rem; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 720px) { .pagina { padding: 0 32px; } }
+
+    /* ---------- Cabecera ---------- */
+    .sitio {
+      padding: 20px 0 0;
+      font-size: 1rem;
+      font-weight: 600;
+      font-variation-settings: "wdth" 112;
+    }
+    .sitio a { text-decoration: none; }
+
+    /* ---------- Portada ---------- */
+    .portada {
+      display: grid;
+      gap: 32px;
+      padding: 40px 0 56px;
+      align-items: center;
+    }
+    @media (min-width: 960px) {
+      .portada { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; padding: 64px 0 88px; }
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(3.4rem, 13vw, 6.6rem);
+      line-height: 0.9;
+      font-weight: 800;
+      font-variation-settings: "wdth" 125;
+      letter-spacing: -0.015em;
+    }
+    h1 span { display: block; }
+    @media (min-width: 960px) {
+      /* Que "Simulador" quepa en su columna sin meterse bajo la foto */
+      h1 { font-size: clamp(3rem, 5.4vw, 4.6rem); }
+    }
+    .entrada {
+      margin: 24px 0 0;
+      max-width: 30rem;
+      font-size: 1.25rem;
+      line-height: 1.5;
+    }
+    .descargar {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding: 18px 28px;
+      background: var(--boton);
+      color: var(--boton-texto);
+      border-radius: 999px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      font-variation-settings: "wdth" 112;
+      text-decoration: none;
+      transition: transform 120ms ease;
+    }
+    .descargar:active { transform: scale(0.97); }
+    .descargar svg { width: 22px; height: 22px; flex: none; }
+    .nota {
+      margin: 14px 0 0;
+      max-width: 30rem;
+      font-size: 0.95rem;
+      color: var(--tinta-suave);
+    }
+
+    /* ---------- Visor: la escena del simulador ---------- */
+    .visor {
+      margin: 0;
+      background: var(--carta);
+      padding: 10px;
+      border-radius: 14px;
+    }
+    .foto {
+      position: relative;
+      aspect-ratio: 1600 / 893;
+      overflow: hidden;
+      border-radius: 6px 6px 0 0;
+      background: #5d5d5b;
+    }
+    .foto img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 260ms ease;
+    }
+    .foto img.activa { opacity: 1; }
+    .mira {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      margin: -17px 0 0 -17px;
+      pointer-events: none;
+      transition: left 300ms ease, top 300ms ease;
+      filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.7));
+    }
+    .mira::before, .mira::after {
+      content: "";
+      position: absolute;
+      background: var(--mira);
+    }
+    .mira::before { left: 16px; top: 0; width: 2px; height: 34px; }
+    .mira::after { top: 16px; left: 0; width: 34px; height: 2px; }
+    .zona {
+      position: absolute;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: crosshair;
+      border-radius: 6px;
+    }
+    .lectura {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 20px;
+      padding: 10px 14px;
+      background: var(--lectura);
+      color: var(--lectura-texto);
+      border-radius: 0 0 6px 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-variation-settings: "wdth" 87;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+    }
+    .lectura .enfoque { margin-left: auto; color: #fff; }
+    @media (max-width: 520px) {
+      .lectura { gap: 4px 12px; font-size: 0.8rem; font-variation-settings: "wdth" 75; letter-spacing: 0.01em; }
+    }
+    .visor figcaption {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 16px;
+      padding: 12px 4px 2px;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+    .distancias { display: flex; gap: 6px; }
+    .distancias button {
+      min-width: 56px;
+      padding: 7px 12px;
+      border: 1.5px solid rgba(255, 255, 255, 0.75);
+      border-radius: 999px;
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      cursor: pointer;
+    }
+    .distancias button[aria-pressed="true"] {
+      background: var(--mira);
+      border-color: var(--mira);
+    }
+
+    /* ---------- Secciones ---------- */
+    section.bloque { padding: 56px 0; border-top: 1px solid var(--raya); }
+    @media (min-width: 960px) {
+      section.bloque { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; padding: 80px 0; }
+    }
+    h2 {
+      margin: 0 0 24px;
+      font-size: clamp(1.75rem, 4vw, 2.4rem);
+      line-height: 1.05;
+      font-weight: 750;
+      font-variation-settings: "wdth" 118;
+    }
+    .bloque p { margin: 0; max-width: 38rem; }
+    .bloque p + p { margin-top: 16px; }
+
+    .controles dl { margin: 0; display: grid; gap: 0 40px; }
+    @media (min-width: 720px) { .controles dl { grid-template-columns: 1fr 1fr; } }
+    .controles dl div { padding: 16px 0 18px; border-top: 1px solid var(--raya); }
+    .controles dt {
+      font-weight: 700;
+      font-variation-settings: "wdth" 112;
+    }
+    .controles dd { margin: 4px 0 0; color: var(--tinta-suave); }
+
+    .pasos { margin: 0; padding: 0; list-style: none; counter-reset: paso; }
+    .pasos li {
+      counter-increment: paso;
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      padding: 16px 0;
+      border-top: 1px solid var(--raya);
+      max-width: 40rem;
+    }
+    .pasos li::before {
+      content: counter(paso);
+      font-size: 1.6rem;
+      line-height: 1.1;
+      font-weight: 800;
+      font-variation-settings: "wdth" 125;
+    }
+
+    footer {
+      padding: 32px 0 48px;
+      border-top: 1px solid var(--raya);
+      color: var(--tinta-suave);
+      font-size: 0.95rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .foto img, .mira, .descargar { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="pagina">
+    <header class="sitio"><a href="./">Luis y Gloria</a></header>
+
+    <main>
+      <section class="portada">
+        <div>
+          <h1><span>Simulador</span><span>Foto</span></h1>
+          <p class="entrada">Una plaza, tres personas a 1, 3 y 10 metros y una cámara en tu móvil. Mueve la velocidad, el diafragma y el ISO y mira al momento qué le pasa a la foto.</p>
+          <a class="descargar" href="https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+            Descargar para Android
+          </a>
+          <p class="nota" id="version">La última versión. Funciona en Android 12 o superior y ocupa unos 20 MB.</p>
+          <p class="nota">Es gratis y no viene de Google Play: <a href="#instalar">así se instala</a>.</p>
+        </div>
+
+        <figure class="visor">
+          <div class="foto" id="foto">
+            <img src="img/enfoque-1m.jpg" alt="La plaza enfocada a 1 m: el hombre de cerca nítido y el resto desenfocado" data-enfoque="1" width="1600" height="893">
+            <img src="img/enfoque-3m.jpg" alt="La plaza enfocada a 3 m: la mujer del abrigo naranja nítida, el hombre de cerca desenfocado" data-enfoque="3" width="1600" height="893" class="activa">
+            <img src="img/enfoque-10m.jpg" alt="La plaza enfocada a 10 m: el hombre del fondo nítido y los de delante desenfocados" data-enfoque="10" width="1600" height="893">
+            <span class="mira" id="mira" aria-hidden="true"></span>
+            <button class="zona" data-enfoque="1" aria-label="Enfocar a la persona a 1 m" style="left:4%;top:5.5%;width:24%;height:94.5%"></button>
+            <button class="zona" data-enfoque="3" aria-label="Enfocar a la persona a 3 m" style="left:45.1%;top:16.5%;width:11.3%;height:57.4%"></button>
+            <button class="zona" data-enfoque="10" aria-label="Enfocar a la persona a 10 m" style="left:79.5%;top:12%;width:7.5%;height:27%"></button>
+          </div>
+          <div class="lectura">
+            <span>24 mm</span><span>f/1,4</span><span>1/2000 s</span><span>ISO 100</span>
+            <span class="enfoque" id="lectura-enfoque" aria-live="polite">Enfoque a 3 m</span>
+          </div>
+          <figcaption>
+            <span>Toca a una persona para enfocarla.</span>
+            <div class="distancias" role="group" aria-label="Distancia de enfoque">
+              <button type="button" data-enfoque="1" aria-pressed="false">1 m</button>
+              <button type="button" data-enfoque="3" aria-pressed="true">3 m</button>
+              <button type="button" data-enfoque="10" aria-pressed="false">10 m</button>
+            </div>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="bloque controles" aria-labelledby="t-controles">
+        <div>
+          <h2 id="t-controles">Lo que controlas</h2>
+          <p>Cada ajuste cambia la foto en directo, con la exposición correcta de referencia en 1/125 s, f/5,6 e ISO 100.</p>
+        </div>
+        <dl>
+          <div><dt>Velocidad</dt><dd>Si es más lenta que 1/focal, la foto sale movida por el pulso. Con el trípode puesto, no.</dd></div>
+          <div><dt>Diafragma</dt><dd>Ábrelo o ciérralo y mira cuánto se desenfoca cada persona según su distancia.</dd></div>
+          <div><dt>ISO</dt><dd>Al subirlo, la foto se aclara y aparece el grano.</dd></div>
+          <div><dt>Objetivo</dt><dd>Zoom de 24 a 200 mm con botones o pellizcando la foto, y puedes guardar tus focales favoritas.</dd></div>
+          <div><dt>Enfoque</dt><dd>Toca a una persona o el suelo y ese punto queda nítido.</dd></div>
+          <div><dt>Exposición</dt><dd>En la esquina ves cuántos pasos te pasas o te quedas corto. Tócala y aparece el histograma.</dd></div>
+        </dl>
+      </section>
+
+      <section class="bloque" aria-labelledby="t-preguntas">
+        <h2 id="t-preguntas">Cuestionarios para practicar</h2>
+        <div>
+          <p>Mil preguntas en siete temas: pasos de exposición, exposiciones equivalentes, corregir la exposición, velocidad y movimiento, diafragma y profundidad de campo, ISO y ruido, y situaciones reales, como sacar el agua de una cascada con efecto seda.</p>
+          <p>Cada respuesta trae su explicación, y la app recuerda qué preguntas ya has visto y cuántas aciertas por tema.</p>
+        </div>
+      </section>
+
+      <section class="bloque" id="instalar" aria-labelledby="t-instalar">
+        <h2 id="t-instalar">Cómo instalarla</h2>
+        <ol class="pasos">
+          <li><span>Desde el móvil, pulsa <strong>Descargar para Android</strong>. Se baja el archivo simulador-foto.apk.</span></li>
+          <li><span>Ábrelo desde el aviso de descarga completada o desde la carpeta Descargas.</span></li>
+          <li><span>Si el móvil dice que no puede instalar apps de este origen, entra en Ajustes desde el aviso, activa <strong>Permitir de esta fuente</strong> y vuelve atrás.</span></li>
+          <li><span>Pulsa <strong>Instalar</strong>. Si Play Protect pide confirmación porque la app no viene de Google Play, elige <strong>Instalar de todos modos</strong>.</span></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      Una web de Luis y Gloria. El simulador es de código abierto: <a href="https://github.com/luisp193/FOTOGRAFIA">míralo en GitHub</a>.
+    </footer>
+  </div>
+
+  <script>
+    // Demo de enfoque: cambia la foto y mueve el punto de mira a la persona elegida.
+    (function () {
+      var miras = { "1": [16.7, 22.9], "3": [50.7, 22.9], "10": [83.3, 20.9] };
+      var fotos = document.querySelectorAll("#foto img");
+      var mira = document.getElementById("mira");
+      var lectura = document.getElementById("lectura-enfoque");
+      var chips = document.querySelectorAll(".distancias button");
+
+      function enfoca(d) {
+        fotos.forEach(function (img) { img.classList.toggle("activa", img.dataset.enfoque === d); });
+        chips.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.enfoque === d)); });
+        mira.style.left = miras[d][0] + "%";
+        mira.style.top = miras[d][1] + "%";
+        lectura.textContent = "Enfoque a " + d + " m";
+      }
+      document.querySelectorAll("[data-enfoque]").forEach(function (el) {
+        if (el.tagName === "BUTTON") el.addEventListener("click", function () { enfoca(el.dataset.enfoque); });
+      });
+      enfoca("3");
+    })();
+
+    // Versión, fecha y tamaño de la última publicación del simulador (si GitHub responde).
+    (function () {
+      fetch("https://api.github.com/repos/luisp193/FOTOGRAFIA/releases/latest")
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) {
+          var apk = (d.assets || []).find(function (a) { return a.name === "simulador-foto.apk"; });
+          if (!apk) return;
+          var fecha = new Date(d.published_at).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
+          var mb = Math.round(apk.size / 1e6);
+          document.getElementById("version").textContent =
+            "Versión " + d.tag_name.replace(/^v/, "") + ", del " + fecha + ". Funciona en Android 12 o superior y ocupa " + mb + " MB.";
+        })
+        .catch(function () {});
+    })();
+  </script>
+</body>
+</html>
