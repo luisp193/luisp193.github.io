@@ -18,26 +18,32 @@
   <link rel="preload" as="image" href="img/enfoque-3m.jpg">
   <style>
     :root {
-      /* Papel gris y carta gris del 18 %: la referencia de la exposición */
-      --papel: #dcdcd9;
-      --carta: #767676;
-      --tinta: #000;
-      --tinta-suave: #474745;
-      --raya: rgba(0, 0, 0, 0.18);
-      --boton: #000;
+      /* Paleta rojo y verde */
+      --papel: #eaf2e6;
+      --carta: #1f6b34;
+      --tinta: #11291a;
+      --tinta-suave: #3c5a47;
+      --raya: rgba(17, 41, 26, 0.2);
+      --verde: #1b5e20;
+      --rojo: #c62828;
+      --boton: #c62828;
       --boton-texto: #fff;
-      --mira: #e53935;
-      --lectura: #000;
+      --mira: #ff3b36;
+      --lectura: #0d2b1a;
       --lectura-texto: #f2f2f2;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --papel: #262625;
-        --tinta: #f1f1ee;
-        --tinta-suave: #b9b9b5;
-        --raya: rgba(255, 255, 255, 0.18);
-        --boton: #f1f1ee;
-        --boton-texto: #000;
+        --papel: #0f2a1a;
+        --carta: #1f6b34;
+        --tinta: #eef5ec;
+        --tinta-suave: #b4cdba;
+        --raya: rgba(255, 255, 255, 0.2);
+        --verde: #7fd48a;
+        --rojo: #ff6b66;
+        --boton: #c62828;
+        --boton-texto: #fff;
+        --lectura: #07170e;
       }
     }
 
@@ -52,7 +58,7 @@
       font-variation-settings: "wdth" 100;
       -webkit-font-smoothing: antialiased;
     }
-    a { color: inherit; text-underline-offset: 0.18em; }
+    a { color: var(--rojo); text-underline-offset: 0.18em; }
     :focus-visible { outline: 3px solid var(--mira); outline-offset: 3px; }
     img { display: block; max-width: 100%; }
 
@@ -66,7 +72,7 @@
       font-weight: 600;
       font-variation-settings: "wdth" 112;
     }
-    .sitio a { text-decoration: none; }
+    .sitio a { text-decoration: none; color: var(--verde); }
 
     /* ---------- Portada ---------- */
     .portada {
@@ -86,7 +92,8 @@
       font-variation-settings: "wdth" 125;
       letter-spacing: -0.015em;
     }
-    h1 span { display: block; }
+    h1 span { display: block; color: var(--verde); }
+    h1 span + span { color: var(--rojo); }
     @media (min-width: 960px) {
       /* Que "Simulador" quepa en su columna sin meterse bajo la foto */
       h1 { font-size: clamp(3rem, 5.4vw, 4.6rem); }
@@ -111,6 +118,7 @@
       font-variation-settings: "wdth" 112;
       text-decoration: none;
       transition: transform 120ms ease;
+      box-shadow: 0 4px 0 #7f1717;
     }
     .descargar:active { transform: scale(0.97); }
     .descargar svg { width: 22px; height: 22px; flex: none; }
@@ -216,7 +224,7 @@
     }
 
     /* ---------- Secciones ---------- */
-    section.bloque { padding: 56px 0; border-top: 1px solid var(--raya); }
+    section.bloque { padding: 56px 0; border-top: 3px solid var(--verde); }
     @media (min-width: 960px) {
       section.bloque { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; padding: 80px 0; }
     }
@@ -226,6 +234,7 @@
       line-height: 1.05;
       font-weight: 750;
       font-variation-settings: "wdth" 118;
+      color: var(--verde);
     }
     .bloque p { margin: 0; max-width: 38rem; }
     .bloque p + p { margin-top: 16px; }
@@ -234,6 +243,7 @@
     @media (min-width: 720px) { .controles dl { grid-template-columns: 1fr 1fr; } }
     .controles dl div { padding: 16px 0 18px; border-top: 1px solid var(--raya); }
     .controles dt {
+      color: var(--rojo);
       font-weight: 700;
       font-variation-settings: "wdth" 112;
     }
@@ -254,6 +264,7 @@
       line-height: 1.1;
       font-weight: 800;
       font-variation-settings: "wdth" 125;
+      color: var(--rojo);
     }
 
     footer {
