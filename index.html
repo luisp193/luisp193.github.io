@@ -306,11 +306,13 @@
     @media (min-width: 960px) { .inicio h1 { font-size: clamp(4rem, 7vw, 6.6rem); } }
     .indice { margin: 40px 0 0; padding: 0; list-style: none; display: grid; gap: 0 40px; }
     @media (min-width: 880px) { .indice { grid-template-columns: 1fr 1fr; } }
-    .indice li { padding: 24px 0 8px; border-top: 3px solid var(--rojo); }
+    .indice > li { padding: 24px 0 8px; border-top: 3px solid var(--rojo); display: flex; flex-direction: column; }
+    /* Los botones de descarga, siempre a la misma altura en las dos columnas */
+    .indice .acciones { margin-top: auto; }
     .indice h2 { margin: 0 0 4px; font-size: 1.6rem; }
     .indice .para { margin: 0 0 8px; font-weight: 700; color: var(--rojo); font-variation-settings: "wdth" 112; }
     .indice p { margin: 0; max-width: 34rem; color: var(--tinta-suave); }
-    .indice .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 4px; }
+    .indice .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-top: 4px; }
     .indice .descargar { margin-top: 20px; }
     .indice .acciones a.mas { margin-top: 20px; }
 
@@ -352,6 +354,13 @@
     }
     .orden { display: block; margin: 8px 0 0; padding: 10px 12px; white-space: pre-wrap; }
     .aviso { margin-top: 24px; padding-left: 16px; border-left: 3px solid var(--rojo); color: var(--tinta-suave); }
+
+    .capturas { display: grid; gap: 32px; }
+    .captura { margin: 0; }
+    .captura a { display: block; border-radius: 8px; overflow: hidden; border: 1px solid var(--raya); }
+    .captura img { width: 100%; height: auto; }
+    .captura a { width: fit-content; max-width: 100%; }
+    .captura figcaption { margin-top: 10px; font-size: 0.95rem; color: var(--tinta-suave); }
 
     footer {
       padding: 32px 0 48px;
@@ -528,6 +537,31 @@
             <div><dt>Categoría BORRADAS</dt><dd>Si borras los archivos de una descarga, el programa se da cuenta, la detiene y la pasa a la categoría BORRADAS. Lo revisa al arrancar y una vez al día.</dd></div>
             <div><dt>Comprobar borrado</dt><dd>Con el botón derecho sobre una o varias descargas, la opción <strong>Comprobar borrado</strong> hace esa revisión en el momento y te dice el resultado.</dd></div>
           </dl>
+        </section>
+
+        <section class="bloque" id="capturas-qbittorrent" aria-labelledby="t-capturas-qb">
+          <div>
+            <h2 id="t-capturas-qb">Cómo se ve</h2>
+            <p>Capturas de esta versión en Ubuntu. Toca una imagen para verla a tamaño completo.</p>
+          </div>
+          <div class="capturas">
+            <figure class="captura">
+              <a href="img/qb-ventana.webp"><img src="img/qb-ventana.webp" alt="Ventana principal de qBittorrent con cinco descargas y la categoría BORRADAS en el panel izquierdo" width="820" height="450" loading="lazy"></a>
+              <figcaption>La ventana principal. A la izquierda, en Categorías, aparece <strong>BORRADAS</strong> en cuanto el programa encuentra una descarga cuyos archivos ya no están.</figcaption>
+            </figure>
+            <figure class="captura">
+              <a href="img/qb-menu.webp"><img src="img/qb-menu.webp" alt="Menú del botón derecho sobre una descarga, con la opción Comprobar borrado resaltada" width="480" height="480" loading="lazy"></a>
+              <figcaption>El menú del botón derecho sobre una descarga. La opción nueva es <strong>Comprobar borrado</strong>, debajo de Forzar verificación de archivo.</figcaption>
+            </figure>
+            <figure class="captura">
+              <a href="img/qb-comprobar.webp"><img src="img/qb-comprobar.webp" alt="Mensaje de qBittorrent tras Comprobar borrado: ninguna de las descargas seleccionadas está borrada" width="700" height="330" loading="lazy"></a>
+              <figcaption>Lo que contesta Comprobar borrado cuando los archivos siguen en el disco. Si faltan, mueve la descarga a BORRADAS y la detiene.</figcaption>
+            </figure>
+            <figure class="captura">
+              <a href="img/qb-categoria.webp"><img src="img/qb-categoria.webp" alt="Menú del botón derecho con el submenú Categoría abierto, mostrando la categoría BORRADAS" width="600" height="480" loading="lazy"></a>
+              <figcaption>Con el botón derecho, en <strong>Categoría</strong>, puedes sacar una descarga de BORRADAS (Restablecer) o pasarla a otra categoría.</figcaption>
+            </figure>
+          </div>
         </section>
 
         <section class="bloque" id="instalar-qbittorrent" aria-labelledby="t-instalar-qb">
