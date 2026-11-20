@@ -92,6 +92,12 @@
       font-variation-settings: "wdth" 112;
     }
     .sitio a { text-decoration: none; color: var(--verde); }
+    .sitio { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+    .visitas { color: var(--tinta-suave); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .datos { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 12px 0 0; padding: 0; list-style: none; font-size: 0.95rem; color: var(--tinta-suave); font-variant-numeric: tabular-nums; }
+    ul.datos li { padding: 0; border: 0; }
+    .datos[hidden], .visitas[hidden] { display: none; }
+    .datos strong { color: var(--tinta); font-weight: 700; }
 
     /* ---------- Portada ---------- */
     .portada {
@@ -360,7 +366,10 @@
 </head>
 <body>
   <div class="pagina">
-    <header class="sitio"><a href="./">Luis y Gloria</a></header>
+    <header class="sitio">
+      <a href="./">Luis y Gloria</a>
+      <span class="visitas" id="visitas" hidden></span>
+    </header>
 
     <main>
       <section class="inicio" aria-labelledby="t-inicio">
@@ -372,6 +381,10 @@
             <p class="para">Para móviles Android</p>
             <h2>Simulador Foto</h2>
             <p>Una cámara de fotos en el móvil para aprender a usar la velocidad, el diafragma y el ISO viendo al momento qué le pasa a la foto. Trae mil preguntas para practicar.</p>
+            <ul class="datos" data-programa="simulador" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
             <div class="acciones">
               <a class="descargar" href="https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg> Descargar para Android</a>
               <a class="mas" href="#simulador">Qué es y cómo se instala</a>
@@ -381,6 +394,10 @@
             <p class="para">Para ordenadores con Ubuntu</p>
             <h2>qBittorrent para Ubuntu</h2>
             <p>El programa de descargas torrent qBittorrent, en un solo archivo que no hay que instalar, con arreglos propios: va más ligero mientras ves películas con VLC y aparta en BORRADAS las descargas cuyos archivos ya has borrado.</p>
+            <ul class="datos" data-programa="qbittorrent" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
             <div class="acciones">
               <a class="descargar" href="https://github.com/luisp193/qBittorrent/releases/latest/download/qBittorrent-x86_64.AppImage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg> Descargar para Ubuntu</a>
               <a class="mas" href="#qbittorrent">Qué es y cómo se instala</a>
@@ -400,6 +417,10 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
               Descargar para Android
             </a>
+            <ul class="datos" data-programa="simulador" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
             <p class="nota" id="version-simulador">La última versión. Funciona en Android 12 o superior y ocupa unos 20 MB.</p>
             <p class="nota">Es gratis y no viene de Google Play: <a href="#instalar-simulador">así se instala</a>.</p>
           </div>
@@ -476,6 +497,10 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
               Descargar para Ubuntu
             </a>
+            <ul class="datos" data-programa="qbittorrent" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
             <p class="nota" id="version-qbittorrent">La última versión. Es un único archivo AppImage de unos 46 MB para ordenadores de 64 bits.</p>
             <p class="nota">Es gratis y no hace falta instalarlo: <a href="#instalar-qbittorrent">así se pone en marcha</a>.</p>
           </div>
@@ -558,25 +583,57 @@
       enfoca("3");
     })();
 
-    // Versión, fecha y tamaño de la última publicación de cada programa (si GitHub responde).
+    // Por cada programa, desde GitHub: versión, fecha de la última publicación,
+    // tamaño y descargas totales (sumando todas las versiones publicadas).
     (function () {
-      function version(repo, archivo, id, texto) {
-        fetch("https://api.github.com/repos/" + repo + "/releases/latest")
+      var numero = new Intl.NumberFormat("es-ES");
+      function programa(clave, repo, extension, archivo, id, texto) {
+        fetch("https://api.github.com/repos/" + repo + "/releases?per_page=100")
           .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-          .then(function (d) {
-            var a = (d.assets || []).find(function (x) { return x.name === archivo; });
-            if (!a) return;
-            var fecha = new Date(d.published_at).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
-            var mb = Math.round(a.size / 1e6);
-            document.getElementById(id).textContent =
-              "Versión " + d.tag_name.replace(/^v/i, "") + ", del " + fecha + ". " + texto(mb);
+          .then(function (lista) {
+            var publicadas = lista.filter(function (d) { return !d.draft && !d.prerelease; });
+            if (!publicadas.length) return;
+            var ultima = publicadas[0];
+            var total = 0;
+            publicadas.forEach(function (d) {
+              (d.assets || []).forEach(function (a) { if (a.name.endsWith(extension)) total += a.download_count; });
+            });
+            var fecha = new Date(ultima.published_at).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
+            document.querySelectorAll('.datos[data-programa="' + clave + '"]').forEach(function (ul) {
+              ul.querySelector('[data-dato="fecha"]').textContent = fecha;
+              ul.querySelector('[data-dato="descargas"]').textContent = numero.format(total) + (total === 1 ? " descarga" : " descargas");
+              ul.hidden = false;
+            });
+            var a = (ultima.assets || []).find(function (x) { return x.name === archivo; });
+            if (a) {
+              document.getElementById(id).textContent =
+                "Versión " + ultima.tag_name.replace(/^v/i, "") + ". " + texto(Math.round(a.size / 1e6));
+            }
           })
           .catch(function () {});
       }
-      version("luisp193/FOTOGRAFIA", "simulador-foto.apk", "version-simulador",
+      programa("simulador", "luisp193/FOTOGRAFIA", ".apk", "simulador-foto.apk", "version-simulador",
         function (mb) { return "Funciona en Android 12 o superior y ocupa " + mb + " MB."; });
-      version("luisp193/qBittorrent", "qBittorrent-x86_64.AppImage", "version-qbittorrent",
+      programa("qbittorrent", "luisp193/qBittorrent", ".AppImage", "qBittorrent-x86_64.AppImage", "version-qbittorrent",
         function (mb) { return "Un único archivo AppImage de " + mb + " MB para Ubuntu 24.04 o superior."; });
+    })();
+
+    // Contador de visitas (servicio gratuito Abacus). Cuenta una vez por visita:
+    // si se recarga la página en la misma pestaña, solo lee el número.
+    (function () {
+      var contada = false;
+      try { contada = sessionStorage.getItem("visita-contada") === "1"; } catch (e) {}
+      var url = "https://abacus.jasoncameron.dev/" + (contada ? "get" : "hit") + "/luis-gloria.com/visitas";
+      fetch(url)
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) {
+          if (typeof d.value !== "number") return;
+          try { sessionStorage.setItem("visita-contada", "1"); } catch (e) {}
+          var el = document.getElementById("visitas");
+          el.textContent = new Intl.NumberFormat("es-ES").format(d.value) + (d.value === 1 ? " visita" : " visitas");
+          el.hidden = false;
+        })
+        .catch(function () {});
     })();
   </script>
 </body>
