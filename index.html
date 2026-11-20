@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Simulador Foto: aprende a usar la cámara</title>
-  <meta name="description" content="App para Android que enseña fotografía: mueve la velocidad, el diafragma y el ISO sobre una foto real y mira qué cambia. Descarga gratis.">
+  <title>Descargas de Luis y Gloria: Simulador Foto para Android y qBittorrent para Ubuntu</title>
+  <meta name="description" content="Programas gratis para descargar: Simulador Foto, app de Android para aprender fotografía, y qBittorrent para Ubuntu en AppImage, más ligero y con la categoría BORRADAS. Siempre la última versión.">
+  <link rel="canonical" href="https://luis-gloria.com/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Simulador Foto">
-  <meta property="og:description" content="Aprende a usar la cámara moviendo la velocidad, el diafragma y el ISO sobre una foto real. App para Android.">
+  <meta property="og:site_name" content="Luis y Gloria">
+  <meta property="og:title" content="Descargas de Luis y Gloria">
+  <meta property="og:description" content="Simulador Foto para Android y qBittorrent para Ubuntu. Gratis y siempre en su última versión.">
   <meta property="og:image" content="https://luis-gloria.com/img/compartir.jpg">
   <meta property="og:url" content="https://luis-gloria.com/">
   <meta name="twitter:card" content="summary_large_image">
@@ -16,6 +18,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/enfoque-3m.jpg">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Simulador Foto",
+      "description": "App para aprender fotografía: velocidad, diafragma, ISO, enfoque e histograma sobre una foto real, con 1000 preguntas para practicar.",
+      "operatingSystem": "Android 12 o superior",
+      "applicationCategory": "EducationalApplication",
+      "inLanguage": "es",
+      "downloadUrl": "https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk",
+      "image": "https://luis-gloria.com/img/compartir.jpg",
+      "url": "https://luis-gloria.com/#simulador",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "qBittorrent para Ubuntu (versión de Luis)",
+      "description": "qBittorrent 5.3 en AppImage para Ubuntu 24.04 o superior: más ligero mientras ves películas con VLC y con la categoría BORRADAS para las descargas cuyos archivos has borrado.",
+      "operatingSystem": "Ubuntu 24.04 o superior (64 bits)",
+      "applicationCategory": "UtilitiesApplication",
+      "inLanguage": "es",
+      "downloadUrl": "https://github.com/luisp193/qBittorrent/releases/latest/download/qBittorrent-x86_64.AppImage",
+      "url": "https://luis-gloria.com/#qbittorrent",
+      "license": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+    }
+  ]
+  </script>
   <style>
     :root {
       color-scheme: dark;
@@ -260,6 +292,59 @@
       color: var(--rojo);
     }
 
+    /* ---------- Página de descargas ---------- */
+    .inicio { padding: 40px 0 48px; }
+    @media (min-width: 960px) { .inicio { padding: 64px 0 72px; } }
+    @media (min-width: 960px) { .inicio h1 { font-size: clamp(4rem, 7vw, 6.6rem); } }
+    .indice { margin: 40px 0 0; padding: 0; list-style: none; display: grid; gap: 0 40px; }
+    @media (min-width: 880px) { .indice { grid-template-columns: 1fr 1fr; } }
+    .indice li { padding: 24px 0 8px; border-top: 3px solid var(--rojo); }
+    .indice h2 { margin: 0 0 4px; font-size: 1.6rem; }
+    .indice .para { margin: 0 0 8px; font-weight: 700; color: var(--rojo); font-variation-settings: "wdth" 112; }
+    .indice p { margin: 0; max-width: 34rem; color: var(--tinta-suave); }
+    .indice .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 4px; }
+    .indice .descargar { margin-top: 20px; }
+    .indice .acciones a.mas { margin-top: 20px; }
+
+    .programa { border-top: 6px solid var(--verde); }
+    .programa .portada { padding-top: 32px; }
+    .marca {
+      margin: 32px 0 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--tinta-suave);
+      font-variation-settings: "wdth" 112;
+    }
+    .titulo-programa {
+      margin: 0;
+      font-size: clamp(2.8rem, 11vw, 5.4rem);
+      line-height: 0.9;
+      font-weight: 800;
+      font-variation-settings: "wdth" 125;
+      letter-spacing: -0.015em;
+      color: var(--tinta);
+    }
+    .titulo-programa span { display: block; color: var(--verde); }
+    .titulo-programa span + span { color: var(--rojo); }
+    @media (min-width: 960px) { .titulo-programa { font-size: clamp(2.8rem, 5vw, 4.4rem); } }
+
+    .ficha { margin: 0; padding: 0; list-style: none; }
+    .ficha li { display: grid; grid-template-columns: 9rem 1fr; gap: 4px 16px; padding: 12px 0; border-top: 1px solid var(--raya); }
+    .ficha li span:first-child { color: var(--rojo); font-weight: 700; font-variation-settings: "wdth" 112; }
+    @media (max-width: 520px) { .ficha li { grid-template-columns: 1fr; } }
+
+    code, .orden {
+      font-family: ui-monospace, "DejaVu Sans Mono", Menlo, monospace;
+      font-size: 0.88em;
+      background: var(--lectura);
+      color: var(--lectura-texto);
+      border-radius: 4px;
+      padding: 0.1em 0.35em;
+      overflow-wrap: anywhere;
+    }
+    .orden { display: block; margin: 8px 0 0; padding: 10px 12px; white-space: pre-wrap; }
+    .aviso { margin-top: 24px; padding-left: 16px; border-left: 3px solid var(--rojo); color: var(--tinta-suave); }
+
     footer {
       padding: 32px 0 48px;
       border-top: 1px solid var(--raya);
@@ -278,17 +363,46 @@
     <header class="sitio"><a href="./">Luis y Gloria</a></header>
 
     <main>
-      <section class="portada">
-        <div>
-          <h1><span>Simulador</span><span>Foto</span></h1>
-          <p class="entrada">Una plaza, tres personas a 1, 3 y 10 metros y una cámara en tu móvil. Mueve la velocidad, el diafragma y el ISO y mira al momento qué le pasa a la foto.</p>
-          <a class="descargar" href="https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-            Descargar para Android
-          </a>
-          <p class="nota" id="version">La última versión. Funciona en Android 12 o superior y ocupa unos 20 MB.</p>
-          <p class="nota">Es gratis y no viene de Google Play: <a href="#instalar">así se instala</a>.</p>
-        </div>
+      <section class="inicio" aria-labelledby="t-inicio">
+        <h1 id="t-inicio"><span>Descargas</span><span>gratis</span></h1>
+        <p class="entrada">Programas que hacemos o adaptamos nosotros. Los botones bajan siempre la última versión publicada, así que no hace falta buscar la más nueva: es esa.</p>
+
+        <ul class="indice">
+          <li>
+            <p class="para">Para móviles Android</p>
+            <h2>Simulador Foto</h2>
+            <p>Una cámara de fotos en el móvil para aprender a usar la velocidad, el diafragma y el ISO viendo al momento qué le pasa a la foto. Trae mil preguntas para practicar.</p>
+            <div class="acciones">
+              <a class="descargar" href="https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg> Descargar para Android</a>
+              <a class="mas" href="#simulador">Qué es y cómo se instala</a>
+            </div>
+          </li>
+          <li>
+            <p class="para">Para ordenadores con Ubuntu</p>
+            <h2>qBittorrent para Ubuntu</h2>
+            <p>El programa de descargas torrent qBittorrent, en un solo archivo que no hay que instalar, con arreglos propios: va más ligero mientras ves películas con VLC y aparta en BORRADAS las descargas cuyos archivos ya has borrado.</p>
+            <div class="acciones">
+              <a class="descargar" href="https://github.com/luisp193/qBittorrent/releases/latest/download/qBittorrent-x86_64.AppImage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg> Descargar para Ubuntu</a>
+              <a class="mas" href="#qbittorrent">Qué es y cómo se instala</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ===================== Simulador Foto ===================== -->
+      <article class="programa" id="simulador" aria-labelledby="t-simulador">
+        <section class="portada">
+          <div>
+            <p class="marca">App para Android 12 o superior</p>
+            <h2 class="titulo-programa" id="t-simulador"><span>Simulador</span><span>Foto</span></h2>
+            <p class="entrada">Una plaza, tres personas a 1, 3 y 10 metros y una cámara en tu móvil. Mueve la velocidad, el diafragma y el ISO y mira al momento qué le pasa a la foto.</p>
+            <a class="descargar" href="https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              Descargar para Android
+            </a>
+            <p class="nota" id="version-simulador">La última versión. Funciona en Android 12 o superior y ocupa unos 20 MB.</p>
+            <p class="nota">Es gratis y no viene de Google Play: <a href="#instalar-simulador">así se instala</a>.</p>
+          </div>
 
         <figure class="visor">
           <div class="foto" id="foto">
@@ -313,7 +427,7 @@
             </div>
           </figcaption>
         </figure>
-      </section>
+        </section>
 
       <section class="bloque controles" aria-labelledby="t-controles">
         <div>
@@ -340,8 +454,8 @@
         </div>
       </section>
 
-      <section class="bloque" id="instalar" aria-labelledby="t-instalar">
-        <h2 id="t-instalar">Cómo instalarla</h2>
+      <section class="bloque" id="instalar-simulador" aria-labelledby="t-instalar">
+        <h2 id="t-instalar">Cómo instalar el Simulador</h2>
         <ol class="pasos">
           <li><span>Desde el móvil, pulsa <strong>Descargar para Android</strong>. Se baja el archivo simulador-foto.apk.</span></li>
           <li><span>Ábrelo desde el aviso de descarga completada o desde la carpeta Descargas.</span></li>
@@ -349,10 +463,76 @@
           <li><span>Pulsa <strong>Instalar</strong>. Si Play Protect pide confirmación porque la app no viene de Google Play, elige <strong>Instalar de todos modos</strong>.</span></li>
         </ol>
       </section>
+      </article>
+
+      <!-- ===================== qBittorrent ===================== -->
+      <article class="programa" id="qbittorrent" aria-labelledby="t-qbittorrent">
+        <section class="portada">
+          <div>
+            <p class="marca">Programa para Ubuntu 24.04 o superior</p>
+            <h2 class="titulo-programa" id="t-qbittorrent"><span>qBittorrent</span><span>para Ubuntu</span></h2>
+            <p class="entrada">El qBittorrent de siempre, el programa libre para descargar archivos torrent, con unos arreglos nuestros para que no moleste mientras usas el ordenador.</p>
+            <a class="descargar" href="https://github.com/luisp193/qBittorrent/releases/latest/download/qBittorrent-x86_64.AppImage">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              Descargar para Ubuntu
+            </a>
+            <p class="nota" id="version-qbittorrent">La última versión. Es un único archivo AppImage de unos 46 MB para ordenadores de 64 bits.</p>
+            <p class="nota">Es gratis y no hace falta instalarlo: <a href="#instalar-qbittorrent">así se pone en marcha</a>.</p>
+          </div>
+          <div>
+            <ul class="ficha" aria-label="Datos del programa">
+              <li><span>Qué es</span><span>Un programa para descargar archivos por torrent: películas libres, distribuciones de Linux, copias de seguridad compartidas y cualquier archivo que se reparta así.</span></li>
+              <li><span>Base</span><span>qBittorrent 5.3, la versión estable oficial. Cada mes se comprueba sola si ha salido una nueva y, si es así, se junta con nuestros cambios y se publica.</span></li>
+              <li><span>Sistema</span><span>Ubuntu 24.04 o más nuevo, en un ordenador normal de 64 bits (Intel o AMD).</span></li>
+              <li><span>Formato</span><span>AppImage: un solo archivo que se abre con doble clic. Las actualizaciones de Ubuntu no lo tocan.</span></li>
+              <li><span>Idioma</span><span>Español, como el qBittorrent oficial.</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="bloque controles" aria-labelledby="t-distinto">
+          <div>
+            <h2 id="t-distinto">Qué tiene de distinto</h2>
+            <p>Todo lo del qBittorrent oficial sigue ahí. Esto es lo que le hemos añadido.</p>
+          </div>
+          <dl>
+            <div><dt>Modo película</dt><dd>Cuando abres VLC, qBittorrent baja solo a la velocidad lenta (la tortuga) para que la película no se corte. Al cerrar VLC vuelve a la velocidad normal.</dd></div>
+            <div><dt>Más ligero</dt><dd>Usa el disco y el procesador solo cuando ningún otro programa los necesita, y escribe en el disco de forma más tranquila para que el ordenador no se quede congelado.</dd></div>
+            <div><dt>Categoría BORRADAS</dt><dd>Si borras los archivos de una descarga, el programa se da cuenta, la detiene y la pasa a la categoría BORRADAS. Lo revisa al arrancar y una vez al día.</dd></div>
+            <div><dt>Comprobar borrado</dt><dd>Con el botón derecho sobre una o varias descargas, la opción <strong>Comprobar borrado</strong> hace esa revisión en el momento y te dice el resultado.</dd></div>
+          </dl>
+        </section>
+
+        <section class="bloque" id="instalar-qbittorrent" aria-labelledby="t-instalar-qb">
+          <h2 id="t-instalar-qb">Cómo ponerlo en marcha</h2>
+          <div>
+            <ol class="pasos">
+              <li><span>En el ordenador con Ubuntu, pulsa <strong>Descargar para Ubuntu</strong>. Se baja el archivo <code>qBittorrent-x86_64.AppImage</code> a la carpeta Descargas.</span></li>
+              <li><span>Muévelo a una carpeta donde se vaya a quedar, por ejemplo una carpeta <strong>Aplicaciones</strong> dentro de tu carpeta personal.</span></li>
+              <li><span>Haz clic derecho sobre el archivo, entra en <strong>Propiedades</strong> y activa <strong>Ejecutable como programa</strong>. Si prefieres la terminal, desde esa carpeta:<span class="orden">chmod +x qBittorrent-x86_64.AppImage</span></span></li>
+              <li><span>Haz doble clic en el archivo y se abre qBittorrent.</span></li>
+              <li><span>Si no abre y sale un error que habla de <strong>FUSE</strong>, abre la terminal, escribe esto, pon tu contraseña y vuelve a probar:<span class="orden">sudo apt install libfuse2t64</span></span></li>
+            </ol>
+            <p class="aviso">Si ya usabas el qBittorrent de Ubuntu, ciérralo antes de abrir este. Los dos guardan los ajustes en el mismo sitio, así que tus descargas y opciones aparecen tal cual.</p>
+          </div>
+        </section>
+
+        <section class="bloque" aria-labelledby="t-actualizar-qb">
+          <h2 id="t-actualizar-qb">Cómo actualizarlo</h2>
+          <div>
+            <p>Vuelve a pulsar <strong>Descargar para Ubuntu</strong>: siempre baja la versión más nueva. Cierra qBittorrent, cambia el archivo viejo por el nuevo, márcalo otra vez como ejecutable y ábrelo.</p>
+            <p>No pierdes nada: las descargas, las categorías y los ajustes se guardan aparte, en tu carpeta personal.</p>
+            <p>Descarga solo lo que tengas derecho a descargar: el programa es legal, pero lo que se baja con él es responsabilidad de cada uno.</p>
+          </div>
+        </section>
+      </article>
     </main>
 
     <footer>
-      Una web de Luis y Gloria. El simulador es de código abierto: <a href="https://github.com/luisp193/FOTOGRAFIA">míralo en GitHub</a>.
+      Una web de Luis y Gloria. Los dos programas son de código abierto:
+      <a href="https://github.com/luisp193/FOTOGRAFIA">Simulador Foto</a> y
+      <a href="https://github.com/luisp193/qBittorrent">qBittorrent para Ubuntu</a>, basado en el
+      <a href="https://www.qbittorrent.org/">qBittorrent oficial</a> (licencia GPL).
     </footer>
   </div>
 
@@ -378,19 +558,25 @@
       enfoca("3");
     })();
 
-    // Versión, fecha y tamaño de la última publicación del simulador (si GitHub responde).
+    // Versión, fecha y tamaño de la última publicación de cada programa (si GitHub responde).
     (function () {
-      fetch("https://api.github.com/repos/luisp193/FOTOGRAFIA/releases/latest")
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-        .then(function (d) {
-          var apk = (d.assets || []).find(function (a) { return a.name === "simulador-foto.apk"; });
-          if (!apk) return;
-          var fecha = new Date(d.published_at).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
-          var mb = Math.round(apk.size / 1e6);
-          document.getElementById("version").textContent =
-            "Versión " + d.tag_name.replace(/^v/, "") + ", del " + fecha + ". Funciona en Android 12 o superior y ocupa " + mb + " MB.";
-        })
-        .catch(function () {});
+      function version(repo, archivo, id, texto) {
+        fetch("https://api.github.com/repos/" + repo + "/releases/latest")
+          .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+          .then(function (d) {
+            var a = (d.assets || []).find(function (x) { return x.name === archivo; });
+            if (!a) return;
+            var fecha = new Date(d.published_at).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
+            var mb = Math.round(a.size / 1e6);
+            document.getElementById(id).textContent =
+              "Versión " + d.tag_name.replace(/^v/i, "") + ", del " + fecha + ". " + texto(mb);
+          })
+          .catch(function () {});
+      }
+      version("luisp193/FOTOGRAFIA", "simulador-foto.apk", "version-simulador",
+        function (mb) { return "Funciona en Android 12 o superior y ocupa " + mb + " MB."; });
+      version("luisp193/qBittorrent", "qBittorrent-x86_64.AppImage", "version-qbittorrent",
+        function (mb) { return "Un único archivo AppImage de " + mb + " MB para Ubuntu 24.04 o superior."; });
     })();
   </script>
 </body>
