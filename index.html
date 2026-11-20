@@ -96,8 +96,8 @@
     .visitas { color: var(--tinta-suave); font-weight: 500; font-variant-numeric: tabular-nums; }
     .datos { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 12px 0 0; padding: 0; list-style: none; font-size: 0.95rem; color: var(--tinta-suave); font-variant-numeric: tabular-nums; }
     ul.datos li { padding: 0; border: 0; }
-    .indice .datos { margin: 0 0 10px; }
-    .titulo-programa + .datos { margin-top: 16px; }
+    .indice .datos { margin: 14px 0 0; }
+    .descargar + .datos { margin-top: 16px; }
     .datos[hidden], .visitas[hidden] { display: none; }
     .datos strong { color: var(--tinta); font-weight: 700; }
 
@@ -391,28 +391,28 @@
           <li>
             <p class="para">Para móviles Android</p>
             <h2>Simulador Foto</h2>
-            <ul class="datos" data-programa="simulador" hidden>
-              <li>Actualizado el <strong data-dato="fecha"></strong></li>
-              <li><strong data-dato="descargas"></strong></li>
-            </ul>
             <p>Una cámara de fotos en el móvil para aprender a usar la velocidad, el diafragma y el ISO viendo al momento qué le pasa a la foto. Trae mil preguntas para practicar.</p>
             <div class="acciones">
               <a class="descargar" href="https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg> Descargar para Android</a>
               <a class="mas" href="#simulador">Qué es y cómo se instala</a>
             </div>
+            <ul class="datos" data-programa="simulador" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
           </li>
           <li>
             <p class="para">Para ordenadores con Ubuntu</p>
             <h2>qBittorrent para Ubuntu</h2>
-            <ul class="datos" data-programa="qbittorrent" hidden>
-              <li>Actualizado el <strong data-dato="fecha"></strong></li>
-              <li><strong data-dato="descargas"></strong></li>
-            </ul>
             <p>El programa de descargas torrent qBittorrent, en un solo archivo que no hay que instalar, con arreglos propios: va más ligero mientras ves películas con VLC y aparta en BORRADAS las descargas cuyos archivos ya has borrado.</p>
             <div class="acciones">
               <a class="descargar" href="https://github.com/luisp193/qBittorrent/releases/latest/download/qBittorrent-x86_64.AppImage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg> Descargar para Ubuntu</a>
               <a class="mas" href="#qbittorrent">Qué es y cómo se instala</a>
             </div>
+            <ul class="datos" data-programa="qbittorrent" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
           </li>
         </ul>
       </section>
@@ -423,15 +423,15 @@
           <div>
             <p class="marca">App para Android 12 o superior</p>
             <h2 class="titulo-programa" id="t-simulador"><span>Simulador</span><span>Foto</span></h2>
-            <ul class="datos" data-programa="simulador" hidden>
-              <li>Actualizado el <strong data-dato="fecha"></strong></li>
-              <li><strong data-dato="descargas"></strong></li>
-            </ul>
             <p class="entrada">Una plaza, tres personas a 1, 3 y 10 metros y una cámara en tu móvil. Mueve la velocidad, el diafragma y el ISO y mira al momento qué le pasa a la foto.</p>
             <a class="descargar" href="https://github.com/luisp193/FOTOGRAFIA/releases/latest/download/simulador-foto.apk">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
               Descargar para Android
             </a>
+            <ul class="datos" data-programa="simulador" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
             <p class="nota" id="version-simulador">La última versión. Funciona en Android 12 o superior y ocupa unos 20 MB.</p>
             <p class="nota">Es gratis y no viene de Google Play: <a href="#instalar-simulador">así se instala</a>.</p>
           </div>
@@ -503,15 +503,15 @@
           <div>
             <p class="marca">Programa para Ubuntu 24.04 o superior</p>
             <h2 class="titulo-programa" id="t-qbittorrent"><span>qBittorrent</span><span>para Ubuntu</span></h2>
-            <ul class="datos" data-programa="qbittorrent" hidden>
-              <li>Actualizado el <strong data-dato="fecha"></strong></li>
-              <li><strong data-dato="descargas"></strong></li>
-            </ul>
             <p class="entrada">El qBittorrent de siempre, el programa libre para descargar archivos torrent, con unos arreglos nuestros para que no moleste mientras usas el ordenador.</p>
             <a class="descargar" href="https://github.com/luisp193/qBittorrent/releases/latest/download/qBittorrent-x86_64.AppImage">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
               Descargar para Ubuntu
             </a>
+            <ul class="datos" data-programa="qbittorrent" hidden>
+              <li>Actualizado el <strong data-dato="fecha"></strong></li>
+              <li><strong data-dato="descargas"></strong></li>
+            </ul>
             <p class="nota" id="version-qbittorrent">La última versión. Es un único archivo AppImage de unos 46 MB para ordenadores de 64 bits.</p>
             <p class="nota">Es gratis y no hace falta instalarlo: <a href="#instalar-qbittorrent">así se pone en marcha</a>.</p>
           </div>
